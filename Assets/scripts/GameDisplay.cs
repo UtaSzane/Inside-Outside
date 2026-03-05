@@ -17,23 +17,23 @@ public class GameDisplay: MonoBehaviour {
     public static void MapCreate() {
         if (instance == null) return;
         instance.Clear();
-        var orbcnt = Gameplay.OrbValues.Count;
+        var orbcnt = Vertexes.Count;
         for (int i = 0; i < orbcnt; ++i)
-            instance.orbs.Add(instance.OrbCreate(i, orbcnt, Gameplay.OrbValues[i]));
+            instance.orbs.Add(instance.OrbCreate(i, orbcnt, Vertexes.Vertex(i)));
         for (int i = 0; i < orbcnt; ++i)
             instance.lines.Add(instance.LineCreate(i, orbcnt));
     }
     public static void MapUpdate() {
         if (instance == null) return;
-        var orbcnt = Gameplay.OrbValues.Count;
+        var orbcnt = Vertexes.Count;
         for (int i = 0; i < orbcnt; ++i) 
-            instance.orbs[i].GetComponent<OrbObj>().UpdateVal(Gameplay.OrbValues[i]);
+            instance.orbs[i].GetComponent<OrbObj>().UpdateVal(Vertexes.Vertex(i));
     }
 
     public static void UpdatePlayer() {
         if (instance == null) return;
-        var orbcnt = Gameplay.OrbValues.Count;
-        instance.player.eulerAngles = 360f * Gameplay.PlayerPtr * Vector3.forward / orbcnt;
+        var orbcnt = Vertexes.Count;
+        instance.player.eulerAngles = 360f * Control.target_edge * Vector3.forward / orbcnt;
     }
 
     private void Clear() {
