@@ -8,9 +8,9 @@ public class LineObj: MonoBehaviour {
         this.line_id = line_id;
     }
     private void Update() {
-        var plrptr = Gameplay.PlayerPtr;
+        var plrptr = Control.target_edge;
         var img = transform.GetComponent<Image>();
-        if (line_id == Gameplay.GiftedEdge) { 
+        if (PrizedEdges.IsPrizedEdge(line_id)) { 
         // if (Gameplay.PAbility == GameAbility.Greedy && line_id == Gameplay.GiftedLine) { 
             if (line_id == plrptr) img.color = Color.green;
             else img.color = Color.yellow;
