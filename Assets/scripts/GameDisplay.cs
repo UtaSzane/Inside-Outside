@@ -6,7 +6,7 @@ public class GameDisplay: MonoBehaviour {
     private static GameDisplay instance;
     [SerializeField] private RectTransform orbtemp, linetemp, player;
     [SerializeField] private RectTransform orbgroup, linegroup;
-    [SerializeField] private List<RectTransform> orbs = new(), lines = new();
+    private readonly List<RectTransform> orbs = new(), lines = new();
     [SerializeField] [Min(1)] private int orb_radius = 100, line_w = 10;
     
     private void Start() {
@@ -17,22 +17,22 @@ public class GameDisplay: MonoBehaviour {
     public static void MapCreate() {
         if (instance == null) return;
         instance.Clear();
-        var orbcnt = Gameplay.OrbVals.Count;
+        var orbcnt = Gameplay.OrbValues.Count;
         for (int i = 0; i < orbcnt; ++i)
-            instance.orbs.Add(instance.OrbCreate(i, orbcnt, Gameplay.OrbVals[i]));
+            instance.orbs.Add(instance.OrbCreate(i, orbcnt, Gameplay.OrbValues[i]));
         for (int i = 0; i < orbcnt; ++i)
             instance.lines.Add(instance.LineCreate(i, orbcnt));
     }
     public static void MapUpdate() {
         if (instance == null) return;
-        var orbcnt = Gameplay.OrbVals.Count;
+        var orbcnt = Gameplay.OrbValues.Count;
         for (int i = 0; i < orbcnt; ++i) 
-            instance.orbs[i].GetComponent<GameOrb>().UpdateVal(Gameplay.OrbVals[i]);
+            instance.orbs[i].GetComponent<OrbObj>().UpdateVal(Gameplay.OrbValues[i]);
     }
 
     public static void UpdatePlayer() {
         if (instance == null) return;
-        var orbcnt = Gameplay.OrbVals.Count;
+        var orbcnt = Gameplay.OrbValues.Count;
         instance.player.eulerAngles = 360f * Gameplay.PlayerPtr * Vector3.forward / orbcnt;
     }
 
@@ -51,7 +51,7 @@ public class GameDisplay: MonoBehaviour {
             Quaternion.identity,
             orbgroup.transform
         );
-        neworb.GetComponent<GameOrb>().Init(value, index);
+        neworb.GetComponent<OrbObj>().Init(value, index);
         neworb.gameObject.name = $"orb_{index}";
         return neworb;
     }
@@ -67,7 +67,7 @@ public class GameDisplay: MonoBehaviour {
         );
         newline.sizeDelta = new Vector3(line_w, width, 1f);
         newline.gameObject.name = $"line_{index}";
-        newline.GetComponent<GameLine>().Init(index);
+        newline.GetComponent<LineObj>().Init(index);
         return newline;
     }
 }

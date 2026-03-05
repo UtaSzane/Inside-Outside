@@ -148,7 +148,7 @@ GameObject:
   - component: {fileID: 1341010192864967034}
   - component: {fileID: 4502393722007716238}
   m_Layer: 5
-  m_Name: orb
+  m_Name: orbobj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
