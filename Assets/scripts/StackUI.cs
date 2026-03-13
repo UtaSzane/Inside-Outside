@@ -24,6 +24,10 @@ public class StackUI : MonoBehaviour {
             stack.Push(pack); pack.SetParent(active_store);
         }
     }
+    public void Clear(RectTransform new_pack) {
+        while (stack.Count > 0) Pop();
+        Push(new_pack);
+    }
     public void Pop() {
         stack.Pop().SetParent(inactive_store);
     }
